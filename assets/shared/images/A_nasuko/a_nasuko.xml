@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="a_nasuko.png"><SubTexture name="a_nasuko stand0000" x="0" y="0" width="279" height="546" frameX="-90" frameY="-35" frameWidth="500" frameHeight="600" />
+<SubTexture name="a_nasuko stand0001" x="1270" y="0" width="269" height="544" frameX="-96" frameY="-37" frameWidth="500" frameHeight="600" />
+<SubTexture name="a_nasuko stand0002" x="1539" y="543" width="269" height="537" frameX="-96" frameY="-44" frameWidth="500" frameHeight="600" />
+<SubTexture name="a_nasuko stand0003" x="998" y="546" width="269" height="545" frameX="-96" frameY="-36" frameWidth="500" frameHeight="600" />
+<SubTexture name="a_nasuko stand0004" x="0" y="0" width="279" height="546" frameX="-90" frameY="-35" frameWidth="500" frameHeight="600" />
+<SubTexture name="a_nasuko down0000" x="1270" y="544" width="269" height="543" frameX="-96" frameY="-38" frameWidth="500" frameHeight="600" />
+<SubTexture name="a_nasuko down0001" x="1539" y="0" width="269" height="543" frameX="-96" frameY="-38" frameWidth="500" frameHeight="600" />
+<SubTexture name="a_nasuko left0000" x="279" y="0" width="326" height="546" frameX="-39" frameY="-35" frameWidth="500" frameHeight="600" />
+<SubTexture name="a_nasuko left0001" x="605" y="0" width="331" height="546" frameX="-34" frameY="-35" frameWidth="500" frameHeight="600" />
+<SubTexture name="a_nasuko right0000" x="936" y="0" width="334" height="546" frameX="-72" frameY="-35" frameWidth="500" frameHeight="600" />
+<SubTexture name="a_nasuko right0001" x="0" y="546" width="338" height="546" frameX="-72" frameY="-35" frameWidth="500" frameHeight="600" />
+<SubTexture name="a_nasuko up0000" x="338" y="546" width="333" height="546" frameX="-36" frameY="-35" frameWidth="500" frameHeight="600" />
+<SubTexture name="a_nasuko up0001" x="671" y="546" width="327" height="546" frameX="-42" frameY="-35" frameWidth="500" frameHeight="600" />
+</TextureAtlas>

@@ -1,0 +1,4 @@
+tutorial:gf:0
+voluntear:a_nasuko:1
+nasuu:a_nasuko:1
+antidote:a_nasuko:1
