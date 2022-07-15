@@ -1,9 +1,9 @@
 {
  "song": {
   "player1": "bf",
-  "songId": "voluntear",
-  "songName": "voluntear",
   "player2": "a_nasuko",
+  "songId": "voluntear",
+  "songName": "voluntear",  
   "notes": [
    {
     "lengthInSteps": 16,

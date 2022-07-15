@@ -134,7 +134,7 @@ class TitleState extends MusicBeatState
 		if (Main.watermarks)
 		{
 			logoBl = new FlxSprite(-150, 1500);
-			logoBl.frames = Paths.getSparrowAtlas('KadeEngineLogoBumpin');
+			logoBl.frames = Paths.getSparrowAtlas('NCLogoBumpin');
 		}
 		else
 		{

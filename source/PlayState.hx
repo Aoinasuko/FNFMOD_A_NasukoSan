@@ -2978,7 +2978,7 @@ class PlayState extends MusicBeatState
 							daNote.y -= daNote.height - stepHeight;
 
 							// If not in botplay, only clip sustain notes when properly hit, botplay gets to clip it everytime
-							if (((PlayStateChangeables.botPlay && daNote.noteType != 1)
+							if ((PlayStateChangeables.botPlay
 								|| !daNote.mustPress
 								|| daNote.wasGoodHit
 								|| holdArray[Math.floor(Math.abs(daNote.noteData))])
@@ -3034,6 +3034,16 @@ class PlayState extends MusicBeatState
 								daNote.clipRect = swagRect;
 							}
 						}
+					}
+				}
+
+				if (daNote.mustPress && Conductor.songPosition >= daNote.strumTime)
+				{
+					// DamageNote Dalete
+					if (daNote.noteType == 1) {
+						daNote.kill();
+						notes.remove(daNote, true);
+						daNote.destroy();
 					}
 				}
 
@@ -3102,7 +3112,7 @@ class PlayState extends MusicBeatState
 						{
 							if (health > 1.0 && Painflag(curSong) == true)
 							{
-								health -= 0.02;
+								health -= 0.03;
 							}
 						}
 						
