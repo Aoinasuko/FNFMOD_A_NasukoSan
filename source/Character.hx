@@ -77,7 +77,18 @@ class Character extends FlxSprite
 				barColor = 0xFF6dd3ff;
 
 				playAnim('idle');
+			case 'r_alby':
+				frames = Paths.getSparrowAtlas('R_alby/r_alby');
+				animation.addByPrefix('idle', 'r_alby stand', 24, false);
+				animation.addByPrefix('singUP', 'r_alby up', 24, false);
+				animation.addByPrefix('singDOWN', 'r_alby down', 24, false);
+				animation.addByPrefix('singLEFT', 'r_alby left', 24, false);
+				animation.addByPrefix('singRIGHT', 'r_alby right', 24, false);
 
+				loadOffsetFile(curCharacter);
+				barColor = 0xFFff6dd3;
+
+				playAnim('idle');
 			default:
 				parseDataFile();
 		}

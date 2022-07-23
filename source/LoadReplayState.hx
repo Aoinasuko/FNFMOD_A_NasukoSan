@@ -47,6 +47,7 @@ class LoadReplayState extends MusicBeatState
 		controlsStrings.sort(sortByDate);
 
 		addWeek(['voluntear', 'nasuu', 'antidote'], 1, ['a_nasuko']);
+		addWeek(['runpast', 'linecontinues', 'gotoafterfuture'], 2, ['r_alby']);
 
 		for (i in 0...controlsStrings.length)
 		{
@@ -220,7 +221,7 @@ class LoadReplayState extends MusicBeatState
 					}
 					else
 					{
-						var diff:String = ["-easy", "", "-hard"][PlayState.rep.replay.songDiff];
+						var diff:String = ["-easy", "-hard"][PlayState.rep.replay.songDiff];
 						PlayState.SONG = Song.loadFromJson(PlayState.rep.replay.songName, diff);
 					}
 				}

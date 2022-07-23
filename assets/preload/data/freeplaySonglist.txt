@@ -2,3 +2,6 @@ tutorial:gf:0
 voluntear:a_nasuko:1
 nasuu:a_nasuko:1
 antidote:a_nasuko:1
+runpast:r_alby:2
+linecontinues:r_alby:2
+gotoafterfuture:r_alby:2

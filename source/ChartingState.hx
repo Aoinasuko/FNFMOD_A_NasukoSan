@@ -195,7 +195,7 @@ class ChartingState extends MusicBeatState
 			}
 			else
 			{
-				var diff:String = ["-easy", "", "-hard"][PlayState.storyDifficulty];
+				var diff:String = ["-easy", "-hard"][PlayState.storyDifficulty];
 				_song = Song.conversionChecks(Song.loadFromJson(PlayState.SONG.songId, diff));
 			}
 		}
@@ -1014,6 +1014,12 @@ class ChartingState extends MusicBeatState
 		});
 
 		var loadAutosaveBtn:FlxButton = new FlxButton(reloadSongJson.x, reloadSongJson.y + 30, 'load autosave', loadAutosave);
+
+		var loadSongJson:FlxButton = new FlxButton(reloadSong.x, reloadSongJson.y + 50, "Load JSON", function()
+		{
+			loadJson_sel();
+		});
+
 		var stepperBPM:FlxUINumericStepper = new FlxUINumericStepper(10, 65, 0.1, 1, 1.0, 5000.0, 1);
 		stepperBPM.value = Conductor.bpm;
 		stepperBPM.name = 'song_bpm';
@@ -1115,6 +1121,7 @@ class ChartingState extends MusicBeatState
 		tab_group_song.add(reloadSong);
 		tab_group_song.add(reloadSongJson);
 		tab_group_song.add(loadAutosaveBtn);
+		tab_group_song.add(loadSongJson);
 		tab_group_song.add(stepperBPM);
 		tab_group_song.add(stepperBPMLabel);
 		tab_group_song.add(stepperSpeed);
@@ -1387,7 +1394,7 @@ class ChartingState extends MusicBeatState
 			{
 				strum += Conductor.songPosition;
 			}
-			var note:Note = new Note(strum, Math.floor(i[1] % 4), null, issus, true, i[3], i[4], i[5]);
+			var note:Note = new Note(strum, Math.floor(i[1] % 8), null, issus, true, i[3], i[4], i[5]);
 			note.sustainLength = i[2];
 			addNote(note);
 			continue;
@@ -1504,7 +1511,7 @@ class ChartingState extends MusicBeatState
 			}
 			else
 			{
-				var diff:String = ["-easy", "", "-hard"][PlayState.storyDifficulty];
+				var diff:String = ["-easy", "-hard"][PlayState.storyDifficulty];
 				_song = Song.conversionChecks(Song.loadFromJson(PlayState.SONG.songId, diff));
 			}
 		}
@@ -2224,6 +2231,8 @@ class ChartingState extends MusicBeatState
 						pasteNotesFromArray(copiedNotes, true);
 
 						lastAction = "paste";
+
+						copiedNotes = [];
 					}
 				}
 
@@ -3236,8 +3245,14 @@ class ChartingState extends MusicBeatState
 		var noteData = Math.floor(FlxG.mouse.x / GRID_SIZE);
 		var noteSus = 0;
 		var noteType = 0;
-		if (FlxG.keys.pressed.ALT) {
+		if (FlxG.keys.pressed.N) {
 			noteType = 1;
+		}
+		if (FlxG.keys.pressed.J) {
+			noteType = 2;
+		}
+		if (FlxG.keys.pressed.K) {
+			noteType = 3;
 		}
 
 		Debug.logTrace("adding note with " + strum + " from dummyArrow with data " + noteData + "/" + noteType);
@@ -3388,7 +3403,54 @@ class ChartingState extends MusicBeatState
 
 	function loadJson(songId:String):Void
 	{
-		var difficultyArray:Array<String> = ["-easy", "", "-hard"];
+		var difficultyArray:Array<String> = ["-easy", "-hard"];
+
+		PlayState.SONG = Song.loadFromJson(songId, difficultyArray[PlayState.storyDifficulty]);
+
+		while (curRenderedNotes.members.length > 0)
+		{
+			curRenderedNotes.remove(curRenderedNotes.members[0], true);
+		}
+
+		while (curRenderedSustains.members.length > 0)
+		{
+			curRenderedSustains.remove(curRenderedSustains.members[0], true);
+		}
+
+		while (sectionRenderes.members.length > 0)
+		{
+			sectionRenderes.remove(sectionRenderes.members[0], true);
+		}
+
+		while (sectionRenderes.members.length > 0)
+		{
+			sectionRenderes.remove(sectionRenderes.members[0], true);
+		}
+		var toRemove = [];
+
+		for (i in _song.notes)
+		{
+			if (i.startTime > FlxG.sound.music.length)
+				toRemove.push(i);
+		}
+
+		for (i in toRemove)
+			_song.notes.remove(i);
+
+		toRemove = []; // clear memory
+		LoadingState.loadAndSwitchState(new ChartingState());
+	}
+
+	function loadJson_sel():Void
+	{
+		_file = new FileReference();
+		_file.addEventListener(Event.COMPLETE, onSaveComplete);
+		_file.addEventListener(Event.CANCEL, onSaveCancel);
+		_file.addEventListener(IOErrorEvent.IO_ERROR, onSaveError);
+
+		var difficultyArray:Array<String> = ["-easy", "-hard"];
+
+		var songId:String = "test";
 
 		PlayState.SONG = Song.loadFromJson(songId, difficultyArray[PlayState.storyDifficulty]);
 
@@ -3493,7 +3555,7 @@ class ChartingState extends MusicBeatState
 
 	private function saveLevel()
 	{
-		var difficultyArray:Array<String> = ["-easy", "", "-hard"];
+		var difficultyArray:Array<String> = ["-easy", "-hard"];
 
 		var toRemove = [];
 

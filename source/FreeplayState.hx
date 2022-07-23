@@ -63,7 +63,7 @@ class FreeplayState extends MusicBeatState
 		{
 			case 0:
 				diffName = "-easy";
-			case 2:
+			case 1:
 				diffName = "-hard";
 		}
 
@@ -251,14 +251,12 @@ class FreeplayState extends MusicBeatState
 
 			if (diffsThatExist.contains("Easy"))
 				FreeplayState.loadDiff(0, songId, diffs);
-			if (diffsThatExist.contains("Normal"))
-				FreeplayState.loadDiff(1, songId, diffs);
 			if (diffsThatExist.contains("Hard"))
-				FreeplayState.loadDiff(2, songId, diffs);
+				FreeplayState.loadDiff(1, songId, diffs);
 
 			meta.diffs = diffsThatExist;
 
-			if (diffsThatExist.length != 3)
+			if (diffsThatExist.length < 2)
 				trace("I ONLY FOUND " + diffsThatExist);
 
 			FreeplayState.songData.set(songId, diffs);
@@ -522,8 +520,8 @@ class FreeplayState extends MusicBeatState
 		curDifficulty += change;
 
 		if (curDifficulty < 0)
-			curDifficulty = 2;
-		if (curDifficulty > 2)
+			curDifficulty = 1;
+		if (curDifficulty > 1)
 			curDifficulty = 0;
 
 		// adjusting the highscore song name to be compatible (changeDiff)
@@ -557,16 +555,14 @@ class FreeplayState extends MusicBeatState
 		if (curSelected >= songs.length)
 			curSelected = 0;
 
-		if (songs[curSelected].diffs.length != 3)
+		if (songs[curSelected].diffs.length < 2)
 		{
 			switch (songs[curSelected].diffs[0])
 			{
 				case "Easy":
 					curDifficulty = 0;
-				case "Normal":
-					curDifficulty = 1;
 				case "Hard":
-					curDifficulty = 2;
+					curDifficulty = 1;
 			}
 		}
 

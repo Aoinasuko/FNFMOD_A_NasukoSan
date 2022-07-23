@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="r_alby.png">
+<SubTexture name="r_alby stand0000" x="575" y="366" width="209" height="357" frameX="-107" frameY="-219" frameWidth="500" frameHeight="600" />
+<SubTexture name="r_alby stand0001" x="631" y="0" width="209" height="363" frameX="-105" frameY="-213" frameWidth="500" frameHeight="600" />
+<SubTexture name="r_alby stand0002" x="422" y="0" width="209" height="365" frameX="-106" frameY="-211" frameWidth="500" frameHeight="600" />
+<SubTexture name="r_alby stand0003" x="0" y="366" width="208" height="363" frameX="-107" frameY="-213" frameWidth="500" frameHeight="600" />
+<SubTexture name="r_alby down0000" x="1062" y="357" width="213" height="347" frameX="-103" frameY="-230" frameWidth="500" frameHeight="600" />
+<SubTexture name="r_alby down0001" x="840" y="357" width="213" height="347" frameX="-103" frameY="-230" frameWidth="500" frameHeight="600" />
+<SubTexture name="r_alby left0000" x="0" y="0" width="210" height="366" frameX="-109" frameY="-210" frameWidth="500" frameHeight="600" />
+<SubTexture name="r_alby left0001" x="210" y="0" width="212" height="366" frameX="-107" frameY="-210" frameWidth="500" frameHeight="600" />
+<SubTexture name="r_alby right0000" x="840" y="0" width="222" height="357" frameX="-103" frameY="-219" frameWidth="500" frameHeight="600" />
+<SubTexture name="r_alby right0001" x="1062" y="0" width="223" height="357" frameX="-102" frameY="-219" frameWidth="500" frameHeight="600" />
+<SubTexture name="r_alby up0000" x="208" y="366" width="186" height="360" frameX="-130" frameY="-216" frameWidth="500" frameHeight="600" />
+<SubTexture name="r_alby up0001" x="394" y="366" width="181" height="360" frameX="-135" frameY="-216" frameWidth="500" frameHeight="600" />
+</TextureAtlas>

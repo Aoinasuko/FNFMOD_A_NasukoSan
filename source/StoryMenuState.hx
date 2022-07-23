@@ -27,7 +27,8 @@ class StoryMenuState extends MusicBeatState
 	{
 		return [
 			['tutorial'],
-			['voluntear', 'nasuu', 'antidote']
+			['voluntear', 'nasuu', 'antidote'],
+			['runpast', 'linecontinues', 'gotoafterfuture']
 		];
 	}
 
@@ -36,6 +37,7 @@ class StoryMenuState extends MusicBeatState
 	public static var weekUnlocked:Array<Bool> = [];
 
 	var weekCharacters:Array<Dynamic> = [
+		['', 'bf', 'gf'],
 		['', 'bf', 'gf'],
 		['', 'bf', 'gf']
 	];
@@ -177,7 +179,6 @@ class StoryMenuState extends MusicBeatState
 		sprDifficulty = new FlxSprite(leftArrow.x + 130, leftArrow.y);
 		sprDifficulty.frames = ui_tex;
 		sprDifficulty.animation.addByPrefix('easy', 'EASY');
-		sprDifficulty.animation.addByPrefix('normal', 'NORMAL');
 		sprDifficulty.animation.addByPrefix('hard', 'HARD');
 		sprDifficulty.animation.play('easy');
 		sprDifficulty.antialiasing = FlxG.save.data.antialiasing;
@@ -352,7 +353,7 @@ class StoryMenuState extends MusicBeatState
 
 			PlayState.storyDifficulty = curDifficulty;
 
-			var diff:String = ["-easy", "", "-hard"][PlayState.storyDifficulty];
+			var diff:String = ["-easy", "-hard"][PlayState.storyDifficulty];
 			PlayState.sicks = 0;
 			PlayState.bads = 0;
 			PlayState.shits = 0;
@@ -373,8 +374,8 @@ class StoryMenuState extends MusicBeatState
 		curDifficulty += change;
 
 		if (curDifficulty < 0)
-			curDifficulty = 2;
-		if (curDifficulty > 2)
+			curDifficulty = 1;
+		if (curDifficulty > 1)
 			curDifficulty = 0;
 
 		sprDifficulty.offset.x = 0;
@@ -385,9 +386,6 @@ class StoryMenuState extends MusicBeatState
 				sprDifficulty.animation.play('easy');
 				sprDifficulty.offset.x = 20;
 			case 1:
-				sprDifficulty.animation.play('normal');
-				sprDifficulty.offset.x = 70;
-			case 2:
 				sprDifficulty.animation.play('hard');
 				sprDifficulty.offset.x = 20;
 		}

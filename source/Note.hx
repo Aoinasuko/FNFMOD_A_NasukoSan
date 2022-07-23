@@ -126,10 +126,15 @@ class Note extends FlxSprite
 
 		if (inCharter)
 		{
-			if (this.noteType == 0) {
-				frames = PlayState.noteskinSprite;
-			} else {
+			frames = PlayState.noteskinSprite;
+			if (this.noteType == 1) {
 				frames = Paths.getSparrowAtlas('noteskins/Arrows_Damage');
+			}
+			if (this.noteType == 2) {
+				frames = Paths.getSparrowAtlas('noteskins/Arrows_MSpeed');
+			}
+			if (this.noteType == 3) {
+				frames = Paths.getSparrowAtlas('noteskins/Arrows_MSpeed_LS');
 			}
 
 			for (i in 0...4)
@@ -175,10 +180,12 @@ class Note extends FlxSprite
 					setGraphicSize(Std.int(width * CoolUtil.daPixelZoom));
 					updateHitbox();
 				default:
-					if (this.noteType == 0) {
-						frames = PlayState.noteskinSprite;
-					} else {
+					frames = PlayState.noteskinSprite;
+					if (this.noteType == 1) {
 						frames = Paths.getSparrowAtlas('noteskins/Arrows_Damage');
+					}
+					if (this.noteType == 2 || this.noteType == 3) {
+						frames = Paths.getSparrowAtlas('noteskins/Arrows_MSpeed');
 					}
 
 					for (i in 0...4)

@@ -462,6 +462,57 @@ class Stage extends MusicBeatState
 					swagBacks['ground'] = Ground;
 					toAdd.push(Ground);
 				}
+			case 'alby_noon':
+				{
+					camZoom = 0.9;
+					var Sky:FlxSprite = new FlxSprite(-600, -200).loadGraphic(Paths.loadImage('song1/Sky', 'week2'));
+					Sky.antialiasing = FlxG.save.data.antialiasing;
+					Sky.scrollFactor.set(0.9, 0.9);
+					Sky.active = false;
+					swagBacks['sky'] = Sky;
+					toAdd.push(Sky);
+
+					var Ground:FlxSprite = new FlxSprite(-600, -200).loadGraphic(Paths.loadImage('song1/Ground', 'week2'));
+					Ground.antialiasing = FlxG.save.data.antialiasing;
+					Ground.scrollFactor.set(0.9, 0.9);
+					Ground.active = false;
+					swagBacks['ground'] = Ground;
+					toAdd.push(Ground);
+				}
+			case 'alby_evening':
+				{
+					camZoom = 0.9;
+					var Sky:FlxSprite = new FlxSprite(-600, -200).loadGraphic(Paths.loadImage('song2/Sky', 'week2'));
+					Sky.antialiasing = FlxG.save.data.antialiasing;
+					Sky.scrollFactor.set(0.9, 0.9);
+					Sky.active = false;
+					swagBacks['sky'] = Sky;
+					toAdd.push(Sky);
+
+					var Ground:FlxSprite = new FlxSprite(-600, -200).loadGraphic(Paths.loadImage('song2/Ground', 'week2'));
+					Ground.antialiasing = FlxG.save.data.antialiasing;
+					Ground.scrollFactor.set(0.9, 0.9);
+					Ground.active = false;
+					swagBacks['ground'] = Ground;
+					toAdd.push(Ground);
+				}
+			case 'alby_night':
+				{
+					camZoom = 0.9;
+					var Sky:FlxSprite = new FlxSprite(-600, -200).loadGraphic(Paths.loadImage('song3/Sky', 'week2'));
+					Sky.antialiasing = FlxG.save.data.antialiasing;
+					Sky.scrollFactor.set(0.9, 0.9);
+					Sky.active = false;
+					swagBacks['sky'] = Sky;
+					toAdd.push(Sky);
+
+					var Ground:FlxSprite = new FlxSprite(-600, -200).loadGraphic(Paths.loadImage('song3/Ground', 'week2'));
+					Ground.antialiasing = FlxG.save.data.antialiasing;
+					Ground.scrollFactor.set(0.9, 0.9);
+					Ground.active = false;
+					swagBacks['ground'] = Ground;
+					toAdd.push(Ground);
+				}
 			default:
 				{
 					camZoom = 0.9;

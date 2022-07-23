@@ -249,6 +249,7 @@ class PlayState extends MusicBeatState
 	var SongOptionText_PN:FlxText;
 	var SongOptionText_PC:FlxText;
 	var SongOptionText_Pain:FlxText;
+	var SongOptionText_Multi:FlxText;
 
 	public static var campaignScore:Int = 0;
 
@@ -620,6 +621,9 @@ class PlayState extends MusicBeatState
 			case 'a_nasuko':
 				dad.y += 180;
 				camPos.set(dad.getGraphicMidpoint().x + 300, dad.getGraphicMidpoint().y);
+			case 'r_alby':
+				dad.y += 180;
+				camPos.set(dad.getGraphicMidpoint().x + 300, dad.getGraphicMidpoint().y);
 		}
 
 		Stage.update(0);
@@ -945,10 +949,12 @@ class PlayState extends MusicBeatState
 				case 'antidote':
 					songIntro(doof);
 				default:
-					new FlxTimer().start(1, function(timer)
-					{
-						startCountdown();
-					});
+					songIntro(doof);
+					// ダイアログが無い曲を追加した時用にここに置いとく
+					//new FlxTimer().start(1, function(timer)
+					//{
+					//	startCountdown();
+					//});
 			}
 		}
 		else
@@ -1393,7 +1399,7 @@ class PlayState extends MusicBeatState
 
 	function NoFallflag(s:String):Bool
 	{
-		if (storyDifficultyText != "Hard") {
+		if (storyDifficultyText == "Easy") {
 			return true;
 		}
 		return false;
@@ -1404,7 +1410,7 @@ class PlayState extends MusicBeatState
 		if (s == "antidote") {
 			return true;
 		}
-		if (storyDifficultyText == "Hard") {
+		if (storyDifficultyText == "Hard" && (s == "voluntear" || s == "nasuu")) {
 			return true;
 		}
 		return false;
@@ -1416,6 +1422,17 @@ class PlayState extends MusicBeatState
 			if (storyDifficultyText == "Hard") {
 				return true;
 			}
+		}
+		return false;
+	}
+
+	function Multiflag(s:String):Bool
+	{
+		if (s == "gotoafterfuture") {
+			return true;
+		}
+		if (storyDifficultyText == "Hard" && (s == "linecontinues" || s == "runpast")) {
+			return true;
 		}
 		return false;
 	}
@@ -1584,6 +1601,20 @@ class PlayState extends MusicBeatState
 			SongOptionText_Pain.alpha = 0;
 			FlxTween.tween(SongOptionText_Pain, {alpha: 1}, 0.2);
 			add(SongOptionText_Pain);
+			optiony -= 30;
+		}
+
+		if (Multiflag(curSong) == true) {
+			OptionActive = true;
+			SongOptionText_Multi = new FlxText(healthBarBG.x - 120, optiony, 960);
+			SongOptionText_Multi.text = "Multi : The whitish Note is approaching at multiple speeds.";
+			SongOptionText_Multi.size = 26;
+			SongOptionText_Multi.color = FlxColor.WHITE;
+			SongOptionText_Multi.setBorderStyle(FlxTextBorderStyle.OUTLINE, FlxColor.BLACK, 2, 1);
+			SongOptionText_Multi.cameras = [camHUD];
+			SongOptionText_Multi.alpha = 0;
+			FlxTween.tween(SongOptionText_Multi, {alpha: 1}, 0.2);
+			add(SongOptionText_Multi);
 			optiony -= 30;
 		}
 
@@ -2556,6 +2587,7 @@ class PlayState extends MusicBeatState
 			remove(SongOptionText_PC);
 			remove(SongOptionText_PN);
 			remove(SongOptionText_Pain);
+			remove(SongOptionText_Multi);
 		}
 
 		if (FlxG.keys.justPressed.SPACE && skipActive)
@@ -2633,114 +2665,6 @@ class PlayState extends MusicBeatState
 
 		if (generatedMusic && currentSection != null)
 		{
-			// Make sure Girlfriend cheers only for certain songs
-			if (allowedToCheer)
-			{
-				// Don't animate GF if something else is already animating her (eg. train passing)
-				if (gf.animation.curAnim.name == 'danceLeft'
-					|| gf.animation.curAnim.name == 'danceRight'
-					|| gf.animation.curAnim.name == 'idle')
-				{
-					// Per song treatment since some songs will only have the 'Hey' at certain times
-					switch (curSong)
-					{
-						case 'Philly Nice':
-							{
-								// General duration of the song
-								if (curBeat < 250)
-								{
-									// Beats to skip or to stop GF from cheering
-									if (curBeat != 184 && curBeat != 216)
-									{
-										if (curBeat % 16 == 8)
-										{
-											// Just a garantee that it'll trigger just once
-											if (!triggeredAlready)
-											{
-												gf.playAnim('cheer');
-												triggeredAlready = true;
-											}
-										}
-										else
-											triggeredAlready = false;
-									}
-								}
-							}
-						case 'Bopeebo':
-							{
-								// Where it starts || where it ends
-								if (curBeat > 5 && curBeat < 130)
-								{
-									if (curBeat % 8 == 7)
-									{
-										if (!triggeredAlready)
-										{
-											gf.playAnim('cheer');
-											triggeredAlready = true;
-										}
-									}
-									else
-										triggeredAlready = false;
-								}
-							}
-						case 'Blammed':
-							{
-								if (curBeat > 30 && curBeat < 190)
-								{
-									if (curBeat < 90 || curBeat > 128)
-									{
-										if (curBeat % 4 == 2)
-										{
-											if (!triggeredAlready)
-											{
-												gf.playAnim('cheer');
-												triggeredAlready = true;
-											}
-										}
-										else
-											triggeredAlready = false;
-									}
-								}
-							}
-						case 'Cocoa':
-							{
-								if (curBeat < 170)
-								{
-									if (curBeat < 65 || curBeat > 130 && curBeat < 145)
-									{
-										if (curBeat % 16 == 15)
-										{
-											if (!triggeredAlready)
-											{
-												gf.playAnim('cheer');
-												triggeredAlready = true;
-											}
-										}
-										else
-											triggeredAlready = false;
-									}
-								}
-							}
-						case 'Eggnog':
-							{
-								if (curBeat > 10 && curBeat != 111 && curBeat < 220)
-								{
-									if (curBeat % 8 == 7)
-									{
-										if (!triggeredAlready)
-										{
-											gf.playAnim('cheer');
-											triggeredAlready = true;
-										}
-									}
-									else
-										triggeredAlready = false;
-								}
-							}
-					}
-				}
-			}
-
 			#if FEATURE_LUAMODCHART
 			if (luaModchart != null)
 				luaModchart.setVar("mustHit", currentSection.mustHitSection);
@@ -2962,17 +2886,31 @@ class PlayState extends MusicBeatState
 					if (PlayStateChangeables.useDownscroll)
 					{
 						if (daNote.mustPress)
-							daNote.y = (playerStrums.members[Math.floor(Math.abs(daNote.noteData))].y
-								+
-								0.45 * ((Conductor.songPosition - daNote.strumTime) / songMultiplier) * (FlxMath.roundDecimal(PlayStateChangeables.scrollSpeed == 1 ? SONG.speed : PlayStateChangeables.scrollSpeed,
-									2)))
-								- daNote.noteYOff;
+							if (daNote.noteType == 3) {
+								daNote.y = (playerStrums.members[Math.floor(Math.abs(daNote.noteData))].y
+									+
+									0.45 * ((Conductor.songPosition - daNote.strumTime) / songMultiplier) * (FlxMath.roundDecimal(PlayStateChangeables.scrollSpeed == 1 ? SONG.speed * 0.5 : PlayStateChangeables.scrollSpeed * 0.5,
+										2)))
+									- daNote.noteYOff;
+							} else if (daNote.noteType == 2) {
+								daNote.y = (playerStrums.members[Math.floor(Math.abs(daNote.noteData))].y
+									+
+									0.45 * ((Conductor.songPosition - daNote.strumTime) / songMultiplier) * (FlxMath.roundDecimal(PlayStateChangeables.scrollSpeed == 1 ? SONG.speed * 1.7 : PlayStateChangeables.scrollSpeed * 1.7,
+										2)))
+									- daNote.noteYOff;
+							} else {
+								daNote.y = (playerStrums.members[Math.floor(Math.abs(daNote.noteData))].y
+									+
+									0.45 * ((Conductor.songPosition - daNote.strumTime) / songMultiplier) * (FlxMath.roundDecimal(PlayStateChangeables.scrollSpeed == 1 ? SONG.speed : PlayStateChangeables.scrollSpeed,
+										2)))
+									- daNote.noteYOff;
+							}
 						else
 							daNote.y = (strumLineNotes.members[Math.floor(Math.abs(daNote.noteData))].y
-								+
-								0.45 * ((Conductor.songPosition - daNote.strumTime) / songMultiplier) * (FlxMath.roundDecimal(PlayStateChangeables.scrollSpeed == 1 ? SONG.speed : PlayStateChangeables.scrollSpeed,
-									2)))
-								- daNote.noteYOff;
+									+
+									0.45 * ((Conductor.songPosition - daNote.strumTime) / songMultiplier) * (FlxMath.roundDecimal(PlayStateChangeables.scrollSpeed == 1 ? SONG.speed : PlayStateChangeables.scrollSpeed,
+										2)))
+									- daNote.noteYOff;
 						if (daNote.isSustainNote)
 						{
 							daNote.y -= daNote.height - stepHeight;
@@ -3007,15 +2945,28 @@ class PlayState extends MusicBeatState
 					else
 					{
 						if (daNote.mustPress)
-							daNote.y = (playerStrums.members[Math.floor(Math.abs(daNote.noteData))].y
-								- 0.45 * ((Conductor.songPosition - daNote.strumTime) / songMultiplier) * (FlxMath.roundDecimal(PlayStateChangeables.scrollSpeed == 1 ? SONG.speed : PlayStateChangeables.scrollSpeed,
-									2)))
-								+ daNote.noteYOff;
+							
+							if (daNote.noteType == 3) {
+								daNote.y = (playerStrums.members[Math.floor(Math.abs(daNote.noteData))].y
+									- 0.45 * ((Conductor.songPosition - daNote.strumTime) / songMultiplier) * (FlxMath.roundDecimal(PlayStateChangeables.scrollSpeed == 1 ? SONG.speed * 0.5 : PlayStateChangeables.scrollSpeed * 0.5,
+										2)))
+									+ daNote.noteYOff;
+							} else if (daNote.noteType == 2) {
+								daNote.y = (playerStrums.members[Math.floor(Math.abs(daNote.noteData))].y
+									- 0.45 * ((Conductor.songPosition - daNote.strumTime) / songMultiplier) * (FlxMath.roundDecimal(PlayStateChangeables.scrollSpeed == 1 ? SONG.speed * 1.7 : PlayStateChangeables.scrollSpeed * 1.7,
+										2)))
+									+ daNote.noteYOff;
+							} else {
+								daNote.y = (playerStrums.members[Math.floor(Math.abs(daNote.noteData))].y
+									- 0.45 * ((Conductor.songPosition - daNote.strumTime) / songMultiplier) * (FlxMath.roundDecimal(PlayStateChangeables.scrollSpeed == 1 ? SONG.speed : PlayStateChangeables.scrollSpeed,
+										2)))
+									+ daNote.noteYOff;
+							}
 						else
-							daNote.y = (strumLineNotes.members[Math.floor(Math.abs(daNote.noteData))].y
-								- 0.45 * ((Conductor.songPosition - daNote.strumTime) / songMultiplier) * (FlxMath.roundDecimal(PlayStateChangeables.scrollSpeed == 1 ? SONG.speed : PlayStateChangeables.scrollSpeed,
-									2)))
-								+ daNote.noteYOff;
+							daNote.y = (playerStrums.members[Math.floor(Math.abs(daNote.noteData))].y
+									- 0.45 * ((Conductor.songPosition - daNote.strumTime) / songMultiplier) * (FlxMath.roundDecimal(PlayStateChangeables.scrollSpeed == 1 ? SONG.speed : PlayStateChangeables.scrollSpeed,
+										2)))
+									+ daNote.noteYOff;
 						if (daNote.isSustainNote)
 						{
 							if ((PlayStateChangeables.botPlay
@@ -3532,7 +3483,7 @@ class PlayState extends MusicBeatState
 				}
 				else
 				{
-					var diff:String = ["-easy", "", "-hard"][storyDifficulty];
+					var diff:String = ["-easy", "-hard"][storyDifficulty];
 
 					Debug.logInfo('PlayState: Loading next story song ${PlayState.storyPlaylist[0]}-${diff}');
 
@@ -3640,7 +3591,7 @@ class PlayState extends MusicBeatState
 
 		var daRating = Ratings.judgeNote(noteDiff);
 
-		if (daNote == null || daNote.noteType == 0) {
+		if (daNote == null || daNote.noteType != 1) {
 			switch (daRating)
 			{
 				case 'shit':
@@ -4591,11 +4542,6 @@ class PlayState extends MusicBeatState
 			if (allowedToHeadbang)
 			{
 				gf.dance();
-			}
-
-			if (curBeat % 8 == 7 && curSong == 'Bopeebo')
-			{
-				boyfriend.playAnim('hey', true);
 			}
 
 			if (curBeat % 16 == 15 && SONG.songId == 'tutorial' && dad.curCharacter == 'gf' && curBeat > 16 && curBeat < 48)
